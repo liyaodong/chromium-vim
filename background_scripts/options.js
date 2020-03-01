@@ -37,6 +37,7 @@ var defaultSettings = {
   debugcss: false, // Always use default COMMANDBARCSS
   scrollduration: 500,
   zoomfactor: 0.10,
+  zoomLevelAllTabs: 1.6,
   configpath: '',
   locale: '',
   mapleader: '\\',

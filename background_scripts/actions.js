@@ -1,5 +1,16 @@
 var Quickmarks = {};
 
+// indicates current zoom level
+var defaultZoomLevel = true;
+
+function changeZoomLevel(tab, toDefault) {
+  if (!toDefault)
+    chrome.tabs.setZoom(tab.id, settings.zoomLevelAllTabs, function () { });
+  else
+    // restore to default
+    chrome.tabs.setZoom(tab.id, 0, function () { });
+}
+
 Actions = (function() {
 
   var lastCommand = null;
@@ -300,6 +311,24 @@ Actions = (function() {
         }
       });
     });
+  };
+
+  _.zoomAllTabs = function(o) {
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(function(tab) {
+        changeZoomLevel(tab, !defaultZoomLevel);
+        // if (!defaultZoomLevel)
+        //   chrome.tabs.setZoom(tab.id, settings.zoomLevelAllTabs, function() {});
+        // else
+        // // restore to origin
+        //   chrome.tabs.setZoom(tab.id, 0, function() {});
+      });
+      defaultZoomLevel = !defaultZoomLevel;
+    });
+  };
+
+  _.zoomCurrentTab = function(o) {
+    changeZoomLevel(o.sender.tab, defaultZoomLevel);
   };
 
   _.nextTab = function(o) {

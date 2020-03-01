@@ -96,6 +96,8 @@ Mappings.defaults = [
   ['zi',        'zoomPageIn'],
   ['zo',        'zoomPageOut'],
   ['z0',        'zoomOrig'],
+  ['<A-z>',     'zoomAllTabs'],
+  ['Z',         'zoomCurrentTab'],
   ['\'\'',      'lastScrollPosition'],
   ['<C-o>',     'previousScrollPosition'],
   ['<C-i>',     'nextScrollPosition'],
@@ -321,6 +323,12 @@ Mappings.actions = {
     RUNTIME('zoomOrig', null, function() {
       document.body.style.zoom = '1';
     });
+  },
+  zoomAllTabs: function() {
+    RUNTIME('zoomAllTabs');
+  },
+  zoomCurrentTab: function() {
+    RUNTIME('zoomCurrentTab');
   },
   centerMatchT: function() {
     var documentZoom = parseFloat(document.body.style.zoom) || 1;
